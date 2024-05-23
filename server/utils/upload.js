@@ -1,8 +1,13 @@
-import multer from 'multer';
-import { GridFsStorage } from 'multer-gridfs-storage';
+import multer from 'multer'
+import dotenv from 'dotenv';
+import {GridFsStorage} from 'multer-gridfs-storage';
 
-const storage = new GridFsStorage({
-    url: `mongodb://user:codeforinterview@blogweb-shard-00-00.ch1hk.mongodb.net:27017,blogweb-shard-00-01.ch1hk.mongodb.net:27017,blogweb-shard-00-02.ch1hk.mongodb.net:27017/BLOG?ssl=true&replicaSet=atlas-lhtsci-shard-0&authSource=admin&retryWrites=true&w=majority`,
+//multer-gridfs-storage package is used to store uploaded file directly to mongodb
+dotenv.config();
+const username=process.env.DB_USERNAME;
+const password=process.env.DB_PASSWORD;
+const storage =new GridFsStorage({
+    url:`mongodb+srv://${username}:${password}@cluster0.clkxbrq.mongodb.net/Blog?retryWrites=true&w=majority&appName=Cluster0`,
     options: { useNewUrlParser: true },
     file: (request, file) => {
         const match = ["image/png", "image/jpg"];
