@@ -1,14 +1,13 @@
 import mongoose from 'mongoose';
 
-const Connection = async (url) => {
-    const URL=url;
-     try{
+const Connection = async (username, password) => {
+    const URL = `mongodb+srv://${username}:${password}@cluster0.clkxbrq.mongodb.net/Blog?retryWrites=true&w=majority&appName=Cluster0`;
+    try {
+        await mongoose.connect(URL, { useNewUrlParser: true })
+        console.log('Database connected successfully');
+    } catch (error) {
+        console.log('Error while connecting to the database ', error);
+    }
+};
 
-      await mongoose.connect(URL,{useNewUrlParser:true});
-      console.log('DB connected');
-     }catch (error){
-       console.log('Error while connecting DB',error);
-     }
-
-}
 export default Connection;
